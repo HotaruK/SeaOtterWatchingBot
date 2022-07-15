@@ -1,0 +1,13 @@
+steps:
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args:
+  - gcloud
+  - functions
+  - deploy
+  - SeaOtterWatchingBot
+  - --region=us-west1
+  - --source=functions/autodeploy
+  - --trigger-topic=SeaOtterWatchingBot
+  - --runtime=python39
+  - --entry-point=main_cloud_event
+  - --memory=128MB
