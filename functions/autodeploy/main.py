@@ -19,7 +19,7 @@ def main_cloud_event(cloud_event):
         print(s)
         raise RuntimeError("secrets have None, please check it")
 
-    current_ev_time, next_ev_time = _get_base_time_events(datetime.now())
+    current_ev_time, next_ev_time = _get_base_time_events(datetime.now(tz=pytz.timezone('America/Los_Angeles')))
     print(f"target time: current->{current_ev_time}, next->{next_ev_time}")
 
     db = get_firestore_connection(firestore_project_id)
