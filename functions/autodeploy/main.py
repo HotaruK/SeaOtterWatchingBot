@@ -1,5 +1,6 @@
 import functions_framework
 from datetime import datetime, timedelta
+import pytz
 from .settings import firestore_collection_name, firestore_project_id, montereybay_sea_otter_url, \
     twitter_consumer_key, twitter_consumer_secret, twitter_token, twitter_token_secret
 from .firestoreController import get_firestore_connection
@@ -54,7 +55,8 @@ def _get_events_by_time(collection: str, time: str, db) -> list:
 def _get_base_time_events(now: datetime) -> tuple[str, str]:
     fmt = '%Y/%m/%d %H:%M:%S'
     minute = 0 if 0 <= now.minute <= 29 else 30
-    adjust_now = datetime(now.year, now.month, now.day, now.hour, minute, 0)
+    tz_la= pytz.timezone('America/Los_Angeles')
+    adjust_now = datetime(now.year, now.month, now.day, now.hour, minute, 0).astimezone(tz_la)
 
     next_event_time = adjust_now + timedelta(minutes=30)
 
