@@ -1,6 +1,6 @@
 import functions_framework
 from datetime import datetime, timedelta
-from settings import firestore_collection_name, firestore_project_id, montereybay_sea_otter_url
+from .settings import firestore_collection_name, firestore_project_id, montereybay_sea_otter_url
 from .firestoreController.firestore import get_connection
 
 

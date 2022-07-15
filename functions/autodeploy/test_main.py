@@ -1,5 +1,5 @@
 from unittest import TestCase
-from main import _get_base_time_events
+from .main import _get_base_time_events
 from datetime import datetime
 
 
