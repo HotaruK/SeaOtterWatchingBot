@@ -5,9 +5,10 @@ from firebase_admin import firestore
 
 def get_firestore_connection(project_id):
     # Use the application default credentials
-    cred = credentials.ApplicationDefault()
-    firebase_admin.initialize_app(cred, {
-        'projectId': project_id,
-    })
+    if not firebase_admin._apps:
+        cred = credentials.ApplicationDefault()
+        firebase_admin.initialize_app(cred, {
+            'projectId': project_id,
+        })
 
     return firestore.client()

@@ -55,8 +55,8 @@ def _get_events_by_time(collection: str, time: str, db) -> list:
 def _get_base_time_events(now: datetime) -> tuple[str, str]:
     fmt = '%Y/%m/%d %H:%M:%S'
     minute = 0 if 0 <= now.minute <= 29 else 30
-    tz_la= pytz.timezone('America/Los_Angeles')
-    adjust_now = datetime(now.year, now.month, now.day, now.hour, minute, 0).astimezone(tz_la)
+    adjust_now = datetime(now.year, now.month, now.day, now.hour, minute, 0,
+                          tzinfo=pytz.timezone('America/Los_Angeles'))
 
     next_event_time = adjust_now + timedelta(minutes=30)
 
