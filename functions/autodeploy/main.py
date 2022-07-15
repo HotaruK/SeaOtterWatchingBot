@@ -37,11 +37,10 @@ def main_cloud_event(cloud_event):
         text = f"{ev.name} will begin soon, starting at {ev.date}"
         prep_tweets.append(text)
 
-    print(f"current->{len(current_events)}items, next->{len(next_events)}items")
+    print("prep_tweets:", prep_tweets)
 
     # tweet
     if prep_tweets:
-        print(prep_tweets)
         t = get_twitter_connection(twitter_token, twitter_token_secret,
                                    twitter_consumer_key, twitter_consumer_secret)
         post_tweet(text, t)
