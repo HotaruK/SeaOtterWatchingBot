@@ -6,6 +6,8 @@ from .settings import firestore_collection_name, firestore_project_id, montereyb
 from .firestoreController import get_firestore_connection
 from .twitterController import get_twitter_connection, post_tweet
 
+tz_la = pytz.timezone('America/Los_Angeles')
+
 s = [
     firestore_project_id, firestore_collection_name,
     twitter_token, twitter_token_secret, twitter_consumer_key, twitter_consumer_secret
@@ -19,7 +21,7 @@ def main_cloud_event(cloud_event):
         print(s)
         raise RuntimeError("secrets have None, please check it")
 
-    current_ev_time, next_ev_time = _get_base_time_events(datetime.now(tz=pytz.timezone('America/Los_Angeles')))
+    current_ev_time, next_ev_time = _get_base_time_events(datetime.now(tz=tz_la))
     print(f"target time: current->{current_ev_time}, next->{next_ev_time}")
 
     db = get_firestore_connection(firestore_project_id)
@@ -28,14 +30,14 @@ def main_cloud_event(cloud_event):
     # current start event
     current_events = _get_events_by_time(firestore_collection_name, current_ev_time, db)
     for ev in current_events:
-        url = montereybay_sea_otter_url if ev.location == "Sea Otters exhibit" else ""
-        text = f"{ev.name} has just begun! {url}"
+        url = montereybay_sea_otter_url if ev.get('location') == "Sea Otters exhibit" else ""
+        text = f"{ev.get('name')} has just begun! {url}"
         prep_tweets.append(text)
 
     # next start event
     next_events = _get_events_by_time(firestore_collection_name, next_ev_time, db)
     for ev in next_events:
-        text = f"{ev.name} will begin soon, starting at {ev.date}"
+        text = f"{ev.get('name')} will begin soon, starting at {ev.get('date')}"
         prep_tweets.append(text)
 
     print("prep_tweets:", prep_tweets)
@@ -54,8 +56,7 @@ def _get_events_by_time(collection: str, time: str, db) -> list:
 def _get_base_time_events(now: datetime) -> tuple[str, str]:
     fmt = '%Y/%m/%d %H:%M:%S'
     minute = 0 if 0 <= now.minute <= 29 else 30
-    adjust_now = datetime(now.year, now.month, now.day, now.hour, minute, 0,
-                          tzinfo=pytz.timezone('America/Los_Angeles'))
+    adjust_now = datetime(now.year, now.month, now.day, now.hour, minute, 0, tzinfo=tz_la)
 
     next_event_time = adjust_now + timedelta(minutes=30)
 
