@@ -13,5 +13,4 @@ montereybay_sea_otter_url = "https://www.youtube.com/watch?v=JQnxefImhu8"
 # ----------------
 twitter_consumer_key = os.getenv("TWITTER_CONSUMER_KEY")
 twitter_consumer_secret = os.getenv("TWITTER_CONSUMER_SECRET")
-twitter_token = os.getenv("TWITTER_TOKEN")
-twitter_token_secret = os.getenv("TWITTER_TOKEN_SECRET")
+twitter_bearer_token = os.getenv("TWITTER_BEARER_TOKEN")

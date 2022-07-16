@@ -1,9 +1,9 @@
-from twitter import Twitter, OAuth
+from twitter import Twitter, OAuth2
 
 
-def get_twitter_connection(token: str, token_secret: str, consumer_key: str, consumer_secret: str) -> Twitter:
+def get_twitter_connection(consumer_key: str, consumer_secret: str,bearer_token:str) -> Twitter:
     return Twitter(
-        auth=OAuth(token, token_secret, consumer_key, consumer_secret)
+        auth=OAuth2(consumer_key, consumer_secret, bearer_token)
     )
 
 
