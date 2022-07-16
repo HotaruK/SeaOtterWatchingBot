@@ -2,15 +2,15 @@ import functions_framework
 from datetime import datetime, timedelta
 import pytz
 from .settings import firestore_collection_name, firestore_project_id, montereybay_sea_otter_url, \
-    twitter_consumer_key, twitter_consumer_secret, twitter_bearer_token
+    twitter_consumer_key, twitter_consumer_secret, twitter_token, twitter_token_secret
 from .firestoreController import get_firestore_connection
-from .twitterController import get_twitter_connection, post_tweet
+from .twitterController import get_twitter_oauth, post_tweet
 
 tz_la = pytz.timezone('America/Los_Angeles')
 
 s = [
     firestore_project_id, firestore_collection_name,
-    twitter_bearer_token, twitter_consumer_key, twitter_consumer_secret
+    twitter_consumer_key, twitter_consumer_secret, twitter_token, twitter_token_secret
 ]
 
 
@@ -43,9 +43,9 @@ def main_cloud_event(cloud_event):
     print("prep_tweets:", prep_tweets)
 
     # tweet
-    if prep_tweets:
-        t = get_twitter_connection(twitter_consumer_key, twitter_consumer_secret, twitter_bearer_token)
-        post_tweet(text, t)
+    for i in prep_tweets:
+        oauth = get_twitter_oauth(twitter_consumer_key, twitter_consumer_secret, twitter_token, twitter_token_secret)
+        post_tweet(i, oauth)
 
 
 def _get_events_by_time(collection: str, time: str, db) -> list:
