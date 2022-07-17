@@ -31,7 +31,7 @@ def main_cloud_event(cloud_event):
     current_events = _get_events_by_time(firestore_collection_name, current_ev_time, db)
     for ev in current_events:
         url = montereybay_sea_otter_url if ev.get('location') == "Sea Otters exhibit" else ""
-        text = f"{ev.get('name')} has just begun! {url}"
+        text = f"{ev.get('date')} {ev.get('name')} has just begun! {url}"
         prep_tweets.append(text)
 
     # next start event
