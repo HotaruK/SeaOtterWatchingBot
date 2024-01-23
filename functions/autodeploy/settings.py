@@ -6,7 +6,8 @@ import os
 firestore_project_id = os.getenv("FIRESTORE_PROJECT_ID")
 firestore_collection_name = os.getenv("FIRESTORE_COLLECTION_NAME")
 
-montereybay_sea_otter_url = os.getenv("YOUTUBE_URL")
+montereybay_sea_otter_url = os.getenv("MB_YOUTUBE_URL")
+vancouver_sea_otter_url = os.getenv("VC_YOUTUBE_URL")
 
 # ----------------
 # Twitter
