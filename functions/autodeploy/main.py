@@ -68,9 +68,10 @@ def _check_secrets():
 
 
 def _get_url(ev):
-    if ev["aquarium"] == "Monterey Bay Aquarium":
+    aquarium = ev.get('aquarium')
+    if aquarium == "Monterey Bay Aquarium":
         return montereybay_sea_otter_url if ev.get('location') == "Sea Otters exhibit" else ""
-    if ev["aquarium"] == "Vancouver Aquarium":
+    if aquarium == "Vancouver Aquarium":
         return vancouver_sea_otter_url
     else:
         return ""
