@@ -2,7 +2,7 @@ import functions_framework
 from datetime import datetime, timedelta
 import pytz
 from .settings import firestore_collection_name, firestore_project_id, \
-    montereybay_sea_otter_url, vancouver_sea_otter_url, \
+    montereybay_sea_otter_url, vancouver_sea_otter_url, seattle_sea_otter_url, toba_sea_otter_url, \
     twitter_consumer_key, twitter_consumer_secret, twitter_token, twitter_token_secret
 from .firestoreController import get_firestore_connection
 from .twitterController import get_twitter_oauth, post_tweet
@@ -71,7 +71,11 @@ def _get_url(ev):
     aquarium = ev.get('aquarium')
     if aquarium == "Monterey Bay Aquarium":
         return montereybay_sea_otter_url if ev.get('location') == "Sea Otters exhibit" else ""
-    if aquarium == "Vancouver Aquarium":
+    elif aquarium == "Vancouver Aquarium":
         return vancouver_sea_otter_url
+    elif aquarium == "Seattle Aquarium":
+        return seattle_sea_otter_url
+    elif aquarium == "Toba Aquarium":
+        return toba_sea_otter_url
     else:
         return ""

@@ -8,6 +8,8 @@ firestore_collection_name = os.getenv("FIRESTORE_COLLECTION_NAME")
 
 montereybay_sea_otter_url = os.getenv("MB_YOUTUBE_URL")
 vancouver_sea_otter_url = os.getenv("VC_YOUTUBE_URL")
+seattle_sea_otter_url = os.getenv("SEATTLE_YOUTUBE_URL")
+toba_sea_otter_url = os.getenv("TOBA_YOUTUBE_URL")
 
 # ----------------
 # Twitter
