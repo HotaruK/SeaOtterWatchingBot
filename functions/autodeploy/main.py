@@ -55,7 +55,7 @@ def _get_events_by_time(collection: str, time: str, db) -> list:
 
 def _get_base_time_events(now: datetime) -> tuple[str, str]:
     fmt = '%Y/%m/%d %H:%M:%S'
-    minute = 0 if 0 <= now.minute <= 29 else 30
+    minute = (now.minute // 5) * 5  # Round down to the nearest 5 min
     adjust_now = datetime(now.year, now.month, now.day, now.hour, minute, 0, tzinfo=tz_la)
 
     next_event_time = adjust_now + timedelta(minutes=30)
